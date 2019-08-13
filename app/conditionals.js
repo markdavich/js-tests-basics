@@ -2,7 +2,11 @@
 
 function largerNum(num1, num2) {
     // you code here
+    return Math.max(num1, num2)
+}
 
+function valueIsBetween(val, min, max) {
+    return val >= min && val <= max
 }
 
 // 2. Given two numbers, amount correct and amount possible of a test, return the corresponding letter grade.
@@ -14,14 +18,28 @@ function largerNum(num1, num2) {
 // output: "F"
 
 function testGrader(score, possible) {
+    let percent = score / possible
 
+    if (percent > 1 || valueIsBetween(percent, .90, 1)) {
+        return 'A'
+    } else if (valueIsBetween(percent, .80, .89)) {
+        return 'B'
+    } else if (valueIsBetween(percent, .70, .79)) {
+        return 'C'
+    } else if (valueIsBetween(percent, .60, .69)) {
+        return 'D'
+    }
+
+    return 'F'
 }
 
 
 // --------------------------------------------
 
 
-// 3. Given an integer that represents an hour in the day (1 - 24), write a function that returns "good morning", "good afternoon", "good evening", or "good night" based off of what hour it is. You'll need to think in military time.
+// 3. Given an integer that represents an hour in the day (1 - 24), 
+// write a function that returns "good morning", "good afternoon", "good evening", or "good night"
+// based off of what hour it is.You'll need to think in military time.
 //Morning is between 5am and 11am (5 - 11)
 //afternoon is between 12pm and 5pm (12 - 17)
 //evening is between 6pm and 9pm (18 - 21)
@@ -30,12 +48,29 @@ function testGrader(score, possible) {
 
 function timeOfDayGreeting(hour) {
     // you code below
+    if (valueIsBetween(hour, 1, 4) || valueIsBetween(hour, 22, 24)) {
+        return 'good night'
+    } else if (valueIsBetween(hour, 18, 21)) {
+        return 'good evening'
+    } else if (valueIsBetween(hour, 12, 17)) {
+        return 'good afternoon'
+    }
 
+    return 'good morning'
 }
 
-//4. Write a function that will take in a number and return 'fever' if it indicates a fever (over 98.6) and additionally if the person should go to the hospital (at or above 103) 'fever go to hospital' (hint: try this with string concatenation), if it is under return 'no fever'
+// 4. Write a function that will take in a number and return 'fever'
+// if it indicates a fever(over 98.6) and additionally if the person
+// should go to the hospital(at or above 103) 'fever go to hospital'
+// (hint: try this with string concatenation), if it is under return 'no fever'
 function isFever(temp) {
+    if (temp >= 103) {
+        return 'fever go to hospital'
+    } else if (temp > 98.6) {
+        return 'fever'
+    }
 
+    return 'no fever'
 }
 
 //5. Write a function that takes in a car object, if it is not moving then return true
@@ -47,7 +82,7 @@ let myCar = {
 }
 
 function isStopped(car) {
-
+    return !car.moving
 }
 
 //6. Write a function that returns true if a dish is yours and is dirty, or false if one of the statements is false
@@ -58,5 +93,5 @@ let dish = {
 }
 
 function washDish(dish) {
-
+    return dish.yourDish && dish.isDirty
 }
